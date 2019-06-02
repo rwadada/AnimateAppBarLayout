@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.animation.Animation
 import com.rwadada.animateappbarlayout.AnimateAppBarLayout
 import com.rwadada.animateappbarlayout.animations.AppBarAlphaAnimation
+import com.rwadada.animateappbarlayout.animations.AppBarRotateAnimation
 import com.rwadada.animateappbarlayout.animations.AppBarScaleAnimation
 
 class MainActivity : AppCompatActivity() {
@@ -16,28 +17,43 @@ class MainActivity : AppCompatActivity() {
         val appBarLayout: AnimateAppBarLayout = findViewById(R.id.appbar_layout)
 
         val appBarScaleAnimation = AppBarScaleAnimation(
-            1.0f,
-            0.7f,
-            1.0f,
-            0.7f,
-            Animation.RELATIVE_TO_SELF,
-            0.5f,
-            Animation.RELATIVE_TO_SELF,
-            1.0f
+            fromX = 1.0f,
+            toX = 0.7f,
+            fromY = 1.0f,
+            toY = 0.7f,
+            pivotXType = Animation.RELATIVE_TO_SELF,
+            pivotXVal = 0.5f,
+            pivotYType = Animation.RELATIVE_TO_SELF,
+            pivotYVal = 1.0f
         )
         appBarLayout.startAnimation(
-            scaleAnimation = appBarScaleAnimation,
+            appBarScaleAnimation = appBarScaleAnimation,
             targetResourceId = R.id.toolbar,
             scrollViewResourceId = R.id.toolbar
         )
 
         val appBarAlphaAnimation = AppBarAlphaAnimation(
-            1.0f,
-            0.0f
+            fromAlpha = 1.0f,
+            toAlpha = 0.0f
         )
         appBarLayout.startAnimation(
             appBarAlphaAnimation = appBarAlphaAnimation,
-            targetResourceId = R.id.sub_content,
+            targetResourceId = R.id.text_view,
+            scrollViewResourceId = R.id.toolbar
+        )
+
+        val appBarRotateAnimation = AppBarRotateAnimation(
+            fromDegree = 0.0f,
+            toDegree = 360.0f,
+            pivotXType = Animation.RELATIVE_TO_SELF,
+            pivotXVal = 0.5f,
+            pivotYType = Animation.RELATIVE_TO_SELF,
+            pivotYVal = 0.5f
+        )
+
+        appBarLayout.startAnimation(
+            appBarRotateAnimation = appBarRotateAnimation,
+            targetResourceId = R.id.image_view,
             scrollViewResourceId = R.id.toolbar
         )
     }

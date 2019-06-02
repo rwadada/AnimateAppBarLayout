@@ -4,9 +4,11 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.AlphaAnimation
+import android.view.animation.RotateAnimation
 import android.view.animation.ScaleAnimation
 import com.google.android.material.appbar.AppBarLayout
 import com.rwadada.animateappbarlayout.animations.AppBarAlphaAnimation
+import com.rwadada.animateappbarlayout.animations.AppBarRotateAnimation
 import com.rwadada.animateappbarlayout.animations.AppBarScaleAnimation
 
 class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(context, attrs) {
@@ -24,8 +26,11 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
     private var prevTargetAlpha: Float = 0.0f
     private var nextTargetAlpha: Float = 0.0f
 
+    private var prevTargetDegree: Float = 0.0f
+    private var nextTargetDegree: Float = 0.0f
+
     // 指定されたResourceIDのレイアウトにScaleAnimationを設定
-    fun startAnimation(scaleAnimation: AppBarScaleAnimation, targetResourceId: Int, scrollViewResourceId: Int) {
+    fun startAnimation(appBarScaleAnimation: AppBarScaleAnimation, targetResourceId: Int, scrollViewResourceId: Int) {
         lateinit var targetLayout: View
         lateinit var scrollView: View
         addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -39,16 +44,18 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
                         prevTargetSizeY == 0.0f &&
                         nextTargetSizeY == 0.0f
                     ) {
-                        initScaleSize(scaleAnimation)
-                        scrollViewHeight = scrollView.height
+                        initScaleSize(appBarScaleAnimation)
+                        if (scrollViewHeight == 0) {
+                            scrollViewHeight = scrollView.height
+                        }
                     } else {
-                        setScaleSize(verticalOffset, scaleAnimation)
-                        targetLayout.startAnimation(getScaleAnimation(scaleAnimation))
+                        setScaleSize(verticalOffset, appBarScaleAnimation)
+                        targetLayout.startAnimation(getScaleAnimation(appBarScaleAnimation))
                     }
                 }
                 else -> {
-                    setScaleSize(verticalOffset, scaleAnimation)
-                    targetLayout.startAnimation(getScaleAnimation(scaleAnimation))
+                    setScaleSize(verticalOffset, appBarScaleAnimation)
+                    targetLayout.startAnimation(getScaleAnimation(appBarScaleAnimation))
                 }
             }
         })
@@ -72,7 +79,7 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
         return scaleAnimation
     }
 
-    // ScrollするごとにAnimationに使う値を再計算
+    // ScrollするごとにScaleAnimationに使う値を再計算
     private fun setScaleSize(verticalOffset: Int, scaleAnimation: AppBarScaleAnimation) {
         prevTargetSizeX = nextTargetSizeX
         nextTargetSizeX =
@@ -101,13 +108,13 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
                     targetLayout = appBarLayout.findViewById(targetResourceId)
                     scrollView = appBarLayout.findViewById(scrollViewResourceId)
 
-                    if (prevTargetSizeX == 0.0f &&
-                        nextTargetSizeX == 0.0f &&
-                        prevTargetSizeY == 0.0f &&
-                        nextTargetSizeY == 0.0f
+                    if (prevTargetAlpha == 0.0f &&
+                        nextTargetAlpha == 0.0f
                     ) {
                         initAlpha(appBarAlphaAnimation)
-                        scrollViewHeight = scrollView.height
+                        if (scrollViewHeight == 0) {
+                            scrollViewHeight = scrollView.height
+                        }
                     } else {
                         setAlpha(verticalOffset, appBarAlphaAnimation)
                         targetLayout.startAnimation(getAlphaAnimation())
@@ -121,11 +128,13 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
         })
     }
 
+    // AlphaAnimation に使用する値を初期化
     private fun initAlpha(appBarAlphaAnimation: AppBarAlphaAnimation){
         prevTargetAlpha = appBarAlphaAnimation.fromAlpha
         nextTargetAlpha = appBarAlphaAnimation.fromAlpha
     }
 
+    // duration0 fillAfter:trueでAlphaAnimationを作成
     private fun getAlphaAnimation(): AlphaAnimation {
         val alphaAnimation = AlphaAnimation(
             prevTargetAlpha,
@@ -137,9 +146,69 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
         return alphaAnimation
     }
 
+    // ScrollするごとにAlphaAnimationに使う値を再計算
     private fun setAlpha(verticalOffset: Int, appBarAlphaAnimation: AppBarAlphaAnimation) {
         prevTargetAlpha = nextTargetAlpha
         nextTargetAlpha =
                 Math.abs(verticalOffset) * ((appBarAlphaAnimation.toAlpha - appBarAlphaAnimation.fromAlpha) / scrollViewHeight) + appBarAlphaAnimation.fromAlpha
+    }
+
+    // 指定されたResourceIDのレイアウトにRotateAnimationを設定
+    fun startAnimation(appBarRotateAnimation: AppBarRotateAnimation, targetResourceId: Int, scrollViewResourceId: Int) {
+        lateinit var targetLayout: View
+        lateinit var scrollView: View
+        addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            when (verticalOffset) {
+                0 -> {
+                    targetLayout = appBarLayout.findViewById(targetResourceId)
+                    scrollView = appBarLayout.findViewById(scrollViewResourceId)
+
+                    if (prevTargetDegree == 0.0f &&
+                        nextTargetDegree == 0.0f
+                    ) {
+                        initRotateDegree(appBarRotateAnimation)
+                        if (scrollViewHeight == 0) {
+                            scrollViewHeight = scrollView.height
+                        }
+                    } else {
+                        setRotateDegree(verticalOffset, appBarRotateAnimation)
+                        targetLayout.startAnimation(getRotateAnimation(appBarRotateAnimation))
+                    }
+                }
+                else -> {
+                    setRotateDegree(verticalOffset, appBarRotateAnimation)
+                    targetLayout.startAnimation(getRotateAnimation(appBarRotateAnimation))
+                }
+            }
+        })
+    }
+
+    // RotateAnimationに使用する値を初期化
+    private fun initRotateDegree(appBarRotateAnimation: AppBarRotateAnimation) {
+        prevTargetDegree = appBarRotateAnimation.fromDegree
+        nextTargetDegree = appBarRotateAnimation.fromDegree
+    }
+
+    // ScrollするごとにRotateAnimationに使う値を再計算
+    private fun setRotateDegree(verticalOffset: Int, appBarRotateAnimation: AppBarRotateAnimation) {
+        prevTargetDegree = nextTargetDegree
+        nextTargetDegree =
+                Math.abs(verticalOffset) * ((appBarRotateAnimation.toDegree - appBarRotateAnimation.fromDegree) / scrollViewHeight) + appBarRotateAnimation.fromDegree
+    }
+
+    // duration0 fillAfter:trueでRotateAnimationを作成
+    private fun getRotateAnimation(appBarRotateAnimation: AppBarRotateAnimation): RotateAnimation {
+        val rotateAnimation = RotateAnimation(
+            prevTargetDegree,
+            nextTargetDegree,
+            appBarRotateAnimation.pivotXType,
+            appBarRotateAnimation.pivotXVal,
+            appBarRotateAnimation.pivotYType,
+            appBarRotateAnimation.pivotYVal
+        )
+        rotateAnimation.duration = 0
+        rotateAnimation.fillAfter = true
+
+        return rotateAnimation
     }
 }

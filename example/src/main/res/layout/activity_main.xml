@@ -17,14 +17,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:title="@string/app_name"
-                app:layout_scrollFlags="scroll|enterAlways" />
+                app:layout_scrollFlags="scroll|enterAlways"/>
 
-        <TextView
-                android:id="@+id/sub_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:gravity="center"
-                android:text="AppBar SubContent"/>
+                android:layout_height="wrap_content">
+
+            <ImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_launcher_foreground"
+                    android:background="@drawable/ic_launcher_background"
+                    tools:ignore="ContentDescription"/>
+
+            <TextView
+                    android:id="@+id/text_view"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:text="Hello World!"
+                    android:gravity="center"
+                    app:layout_constraintTop_toTopOf="@id/image_view"
+                    app:layout_constraintBottom_toBottomOf="@id/image_view"
+                    app:layout_constraintStart_toEndOf="@id/image_view"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.rwadada.animateappbarlayout.AnimateAppBarLayout>
 
