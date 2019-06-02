@@ -3,10 +3,7 @@ package com.rwadada.animateappbarlayout
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.AlphaAnimation
-import android.view.animation.RotateAnimation
-import android.view.animation.ScaleAnimation
-import android.view.animation.TranslateAnimation
+import android.view.animation.*
 import com.google.android.material.appbar.AppBarLayout
 import com.rwadada.animateappbarlayout.animations.*
 
@@ -302,21 +299,100 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
         targetResourceId: Int,
         scrollViewResourceId: Int
     ) {
-        for (appBarAnimation: AppBarAnimation? in appBarAnimationSet.getAppBarAnimations()) {
-            when (appBarAnimation) {
-                is AppBarScaleAnimation -> {
+        lateinit var targetLayout: View
+        lateinit var scrollView: View
 
-                }
-                is AppBarAlphaAnimation -> {
-
-                }
-                is AppBarRotateAnimation -> {
-
-                }
-                is AppBarTranslateAnimation -> {
-
+        addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val animationSet = AnimationSet(true)
+            for (appBarAnimation: AppBarAnimation? in appBarAnimationSet.getAppBarAnimations()) {
+                when (verticalOffset) {
+                    0 -> {
+                        targetLayout = appBarLayout.findViewById(targetResourceId)
+                        scrollView = appBarLayout.findViewById(scrollViewResourceId)
+                        when (appBarAnimation) {
+                            is AppBarScaleAnimation -> {
+                                if (appBarAnimation.prevTargetSizeX == 0.0f &&
+                                    appBarAnimation.nextTargetSizeX == 0.0f &&
+                                    appBarAnimation.prevTargetSizeY == 0.0f &&
+                                    appBarAnimation.nextTargetSizeY == 0.0f
+                                ) {
+                                    initScaleSize(appBarAnimation)
+                                    if (scrollViewHeight == 0) {
+                                        scrollViewHeight = scrollView.height
+                                    }
+                                } else {
+                                    setScaleSize(verticalOffset, appBarAnimation)
+                                    animationSet.addAnimation(getScaleAnimation(appBarAnimation))
+                                }
+                            }
+                            is AppBarAlphaAnimation -> {
+                                if (appBarAnimation.prevTargetAlpha == 0.0f &&
+                                    appBarAnimation.nextTargetAlpha == 0.0f
+                                ) {
+                                    initAlpha(appBarAnimation)
+                                    if (scrollViewHeight == 0) {
+                                        scrollViewHeight = scrollView.height
+                                    }
+                                } else {
+                                    setAlpha(verticalOffset, appBarAnimation)
+                                    animationSet.addAnimation(getAlphaAnimation(appBarAnimation))
+                                }
+                            }
+                            is AppBarRotateAnimation -> {
+                                if (appBarAnimation.prevTargetDegree == 0.0f &&
+                                    appBarAnimation.nextTargetDegree == 0.0f
+                                ) {
+                                    initRotateDegree(appBarAnimation)
+                                    if (scrollViewHeight == 0) {
+                                        scrollViewHeight = scrollView.height
+                                    }
+                                } else {
+                                    setRotateDegree(verticalOffset, appBarAnimation)
+                                    animationSet.addAnimation(getRotateAnimation(appBarAnimation))
+                                }
+                            }
+                            is AppBarTranslateAnimation -> {
+                                if (appBarAnimation.prevTranslateX == 0.0f &&
+                                    appBarAnimation.nextTranslateX == 0.0f &&
+                                    appBarAnimation.prevTranslateY == 0.0f &&
+                                    appBarAnimation.nextTranslateY == 0.0f
+                                ) {
+                                    initTranslatePosition(appBarAnimation)
+                                    if (scrollViewHeight == 0) {
+                                        scrollViewHeight = scrollView.height
+                                    }
+                                } else {
+                                    setTranslatePosition(verticalOffset, appBarAnimation)
+                                    animationSet.addAnimation(getTranslateAnimation(appBarAnimation))
+                                }
+                            }
+                        }
+                    }
+                    else -> {
+                        when (appBarAnimation) {
+                            is AppBarScaleAnimation -> {
+                                setScaleSize(verticalOffset, appBarAnimation)
+                                animationSet.addAnimation(getScaleAnimation(appBarAnimation))
+                            }
+                            is AppBarAlphaAnimation -> {
+                                setAlpha(verticalOffset, appBarAnimation)
+                                animationSet.addAnimation(getAlphaAnimation(appBarAnimation))
+                            }
+                            is AppBarRotateAnimation -> {
+                                setRotateDegree(verticalOffset, appBarAnimation)
+                                animationSet.addAnimation(getRotateAnimation(appBarAnimation))
+                            }
+                            is AppBarTranslateAnimation -> {
+                                setTranslatePosition(verticalOffset, appBarAnimation)
+                                animationSet.addAnimation(getTranslateAnimation(appBarAnimation))
+                            }
+                        }
+                    }
                 }
             }
-        }
+            animationSet.duration = 0
+            animationSet.fillAfter = true
+            targetLayout.startAnimation(animationSet)
+        })
     }
 }
