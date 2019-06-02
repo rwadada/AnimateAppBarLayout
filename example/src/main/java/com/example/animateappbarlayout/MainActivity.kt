@@ -33,17 +33,21 @@ class MainActivity : AppCompatActivity() {
             scrollViewResourceId = R.id.toolbar
         )
 
-        val appBarAlphaAnimation = AppBarAlphaAnimation(
-            fromAlpha = 1.0f,
-            toAlpha = 0.0f
+        val appBarRotateAnimation1 = AppBarRotateAnimation(
+            fromDegree = 360.0f,
+            toDegree = 0.0f,
+            pivotXType = Animation.RELATIVE_TO_SELF,
+            pivotXVal = 0.5f,
+            pivotYType = Animation.RELATIVE_TO_SELF,
+            pivotYVal = 0.5f
         )
         appBarLayout.setAnimation(
-            appBarAlphaAnimation = appBarAlphaAnimation,
+            appBarRotateAnimation = appBarRotateAnimation1,
             targetResourceId = R.id.text_view,
             scrollViewResourceId = R.id.toolbar
         )
 
-        val appBarRotateAnimation = AppBarRotateAnimation(
+        val appBarRotateAnimation2 = AppBarRotateAnimation(
             fromDegree = 0.0f,
             toDegree = 360.0f,
             pivotXType = Animation.RELATIVE_TO_SELF,
@@ -53,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         appBarLayout.setAnimation(
-            appBarRotateAnimation = appBarRotateAnimation,
+            appBarRotateAnimation = appBarRotateAnimation2,
             targetResourceId = R.id.image_view,
             scrollViewResourceId = R.id.toolbar
         )
