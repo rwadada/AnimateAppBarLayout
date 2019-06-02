@@ -7,6 +7,7 @@ import com.rwadada.animateappbarlayout.AnimateAppBarLayout
 import com.rwadada.animateappbarlayout.animations.AppBarAlphaAnimation
 import com.rwadada.animateappbarlayout.animations.AppBarRotateAnimation
 import com.rwadada.animateappbarlayout.animations.AppBarScaleAnimation
+import com.rwadada.animateappbarlayout.animations.AppBarTranslateAnimation
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,6 +55,23 @@ class MainActivity : AppCompatActivity() {
         appBarLayout.startAnimation(
             appBarRotateAnimation = appBarRotateAnimation,
             targetResourceId = R.id.image_view,
+            scrollViewResourceId = R.id.toolbar
+        )
+
+        val appBarTranslateAnimation = AppBarTranslateAnimation(
+            fromXType = Animation.RELATIVE_TO_PARENT,
+            fromXValue = 0.0f,
+            toXType = Animation.RELATIVE_TO_PARENT,
+            toXValue = 0.95f,
+            fromYType = Animation.RELATIVE_TO_SELF,
+            fromYValue = 0.0f,
+            toYType = Animation.RELATIVE_TO_SELF,
+            toYValue = 0.0f
+        )
+
+        appBarLayout.startAnimation(
+            appBarTranslateAnimation = appBarTranslateAnimation,
+            targetResourceId = R.id.dot,
             scrollViewResourceId = R.id.toolbar
         )
     }

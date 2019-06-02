@@ -6,10 +6,12 @@ import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.RotateAnimation
 import android.view.animation.ScaleAnimation
+import android.view.animation.TranslateAnimation
 import com.google.android.material.appbar.AppBarLayout
 import com.rwadada.animateappbarlayout.animations.AppBarAlphaAnimation
 import com.rwadada.animateappbarlayout.animations.AppBarRotateAnimation
 import com.rwadada.animateappbarlayout.animations.AppBarScaleAnimation
+import com.rwadada.animateappbarlayout.animations.AppBarTranslateAnimation
 
 class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(context, attrs) {
     companion object {
@@ -29,8 +31,18 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
     private var prevTargetDegree: Float = 0.0f
     private var nextTargetDegree: Float = 0.0f
 
+    private var prevTranslateX: Float = 0.0f
+    private var nextTranslateX: Float = 0.0f
+    private var prevTranslateY: Float = 0.0f
+    private var nextTranslateY: Float = 0.0f
+
     // 指定されたResourceIDのレイアウトにScaleAnimationを設定
-    fun startAnimation(appBarScaleAnimation: AppBarScaleAnimation, targetResourceId: Int, scrollViewResourceId: Int) {
+    fun startAnimation(
+        appBarScaleAnimation:
+        AppBarScaleAnimation,
+        targetResourceId: Int,
+        scrollViewResourceId: Int
+    ) {
         lateinit var targetLayout: View
         lateinit var scrollView: View
         addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -80,7 +92,10 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
     }
 
     // ScrollするごとにScaleAnimationに使う値を再計算
-    private fun setScaleSize(verticalOffset: Int, scaleAnimation: AppBarScaleAnimation) {
+    private fun setScaleSize(
+        verticalOffset: Int,
+        scaleAnimation: AppBarScaleAnimation
+    ) {
         prevTargetSizeX = nextTargetSizeX
         nextTargetSizeX =
             Math.abs(verticalOffset) * ((scaleAnimation.toX - scaleAnimation.fromX) / scrollViewHeight) + scaleAnimation.fromX
@@ -99,7 +114,11 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
     }
 
     // 指定されたResourceIDのレイアウトにAlphaAnimationを設定
-    fun startAnimation(appBarAlphaAnimation: AppBarAlphaAnimation, targetResourceId: Int, scrollViewResourceId: Int) {
+    fun startAnimation(
+        appBarAlphaAnimation: AppBarAlphaAnimation,
+        targetResourceId: Int,
+        scrollViewResourceId: Int
+    ) {
         lateinit var targetLayout: View
         lateinit var scrollView: View
         addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -129,7 +148,7 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
     }
 
     // AlphaAnimation に使用する値を初期化
-    private fun initAlpha(appBarAlphaAnimation: AppBarAlphaAnimation){
+    private fun initAlpha(appBarAlphaAnimation: AppBarAlphaAnimation) {
         prevTargetAlpha = appBarAlphaAnimation.fromAlpha
         nextTargetAlpha = appBarAlphaAnimation.fromAlpha
     }
@@ -147,14 +166,21 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
     }
 
     // ScrollするごとにAlphaAnimationに使う値を再計算
-    private fun setAlpha(verticalOffset: Int, appBarAlphaAnimation: AppBarAlphaAnimation) {
+    private fun setAlpha(
+        verticalOffset: Int,
+        appBarAlphaAnimation: AppBarAlphaAnimation
+    ) {
         prevTargetAlpha = nextTargetAlpha
         nextTargetAlpha =
-                Math.abs(verticalOffset) * ((appBarAlphaAnimation.toAlpha - appBarAlphaAnimation.fromAlpha) / scrollViewHeight) + appBarAlphaAnimation.fromAlpha
+            Math.abs(verticalOffset) * ((appBarAlphaAnimation.toAlpha - appBarAlphaAnimation.fromAlpha) / scrollViewHeight) + appBarAlphaAnimation.fromAlpha
     }
 
     // 指定されたResourceIDのレイアウトにRotateAnimationを設定
-    fun startAnimation(appBarRotateAnimation: AppBarRotateAnimation, targetResourceId: Int, scrollViewResourceId: Int) {
+    fun startAnimation(
+        appBarRotateAnimation: AppBarRotateAnimation,
+        targetResourceId: Int,
+        scrollViewResourceId: Int
+    ) {
         lateinit var targetLayout: View
         lateinit var scrollView: View
         addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -190,10 +216,13 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
     }
 
     // ScrollするごとにRotateAnimationに使う値を再計算
-    private fun setRotateDegree(verticalOffset: Int, appBarRotateAnimation: AppBarRotateAnimation) {
+    private fun setRotateDegree(
+        verticalOffset: Int,
+        appBarRotateAnimation: AppBarRotateAnimation
+    ) {
         prevTargetDegree = nextTargetDegree
         nextTargetDegree =
-                Math.abs(verticalOffset) * ((appBarRotateAnimation.toDegree - appBarRotateAnimation.fromDegree) / scrollViewHeight) + appBarRotateAnimation.fromDegree
+            Math.abs(verticalOffset) * ((appBarRotateAnimation.toDegree - appBarRotateAnimation.fromDegree) / scrollViewHeight) + appBarRotateAnimation.fromDegree
     }
 
     // duration0 fillAfter:trueでRotateAnimationを作成
@@ -210,5 +239,79 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
         rotateAnimation.fillAfter = true
 
         return rotateAnimation
+    }
+
+    // 指定されたResourceIDのレイアウトにTranslateAnimationを設定
+    fun startAnimation(
+        appBarTranslateAnimation: AppBarTranslateAnimation,
+        targetResourceId: Int,
+        scrollViewResourceId: Int
+    ) {
+        lateinit var targetLayout: View
+        lateinit var scrollView: View
+        addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            when (verticalOffset) {
+                0 -> {
+                    targetLayout = appBarLayout.findViewById(targetResourceId)
+                    scrollView = appBarLayout.findViewById(scrollViewResourceId)
+
+                    if (prevTranslateX == 0.0f &&
+                        nextTranslateX == 0.0f &&
+                        prevTranslateY == 0.0f &&
+                        nextTranslateY == 0.0f
+                    ) {
+                        initTranslatePosition(appBarTranslateAnimation)
+                        if (scrollViewHeight == 0) {
+                            scrollViewHeight = scrollView.height
+                        }
+                    } else {
+                        setTranslatePosition(verticalOffset, appBarTranslateAnimation)
+                        targetLayout.startAnimation(getTranslateAnimation(appBarTranslateAnimation))
+                    }
+                }
+                else -> {
+                    setTranslatePosition(verticalOffset, appBarTranslateAnimation)
+                    targetLayout.startAnimation(getTranslateAnimation(appBarTranslateAnimation))
+                }
+            }
+        })
+    }
+
+    // TranslateAnimationに使用する値を初期化
+    private fun initTranslatePosition(appBarTranslateAnimation: AppBarTranslateAnimation) {
+        prevTranslateX = appBarTranslateAnimation.fromXValue
+        nextTranslateX = appBarTranslateAnimation.fromXValue
+        prevTranslateY = appBarTranslateAnimation.fromYValue
+        nextTranslateY = appBarTranslateAnimation.fromYValue
+    }
+
+    // ScrollするごとにTranslateAnimationに使う値を再計算
+    private fun setTranslatePosition(verticalOffset: Int,
+                                     appBarTranslateAnimation: AppBarTranslateAnimation) {
+        prevTranslateX = nextTranslateX
+        nextTranslateX =
+            Math.abs(verticalOffset) * ((appBarTranslateAnimation.toXValue - appBarTranslateAnimation.fromXValue) / scrollViewHeight) + appBarTranslateAnimation.fromXValue
+
+        prevTranslateY = nextTranslateY
+        nextTranslateY =
+            Math.abs(verticalOffset) * ((appBarTranslateAnimation.toYValue - appBarTranslateAnimation.fromYValue) / scrollViewHeight) + appBarTranslateAnimation.fromYValue
+    }
+
+    // duration0 fillAfter:trueでTranslateAnimationを作成
+    private fun getTranslateAnimation(appBarTranslateAnimation: AppBarTranslateAnimation): TranslateAnimation {
+        val translateAnimation = TranslateAnimation(
+            appBarTranslateAnimation.fromXType,
+            prevTranslateX,
+            appBarTranslateAnimation.toXType,
+            nextTranslateX,
+            appBarTranslateAnimation.fromYType,
+            prevTranslateY,
+            appBarTranslateAnimation.toYType,
+            nextTranslateY
+        )
+        translateAnimation.duration = 0
+        translateAnimation.fillAfter = true
+
+        return translateAnimation
     }
 }
