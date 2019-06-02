@@ -2,7 +2,7 @@ package com.rwadada.animateappbarlayout.animations
 
 import android.view.animation.Animation
 
-data class AppBarScaleAppBarAnimation(
+data class AppBarScaleAnimation(
     val fromX: Float,
     val toX: Float,
     val fromY: Float,

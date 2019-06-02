@@ -7,7 +7,7 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.ScaleAnimation
 import com.google.android.material.appbar.AppBarLayout
 import com.rwadada.animateappbarlayout.animations.AppBarAlphaAnimation
-import com.rwadada.animateappbarlayout.animations.AppBarScaleAppBarAnimation
+import com.rwadada.animateappbarlayout.animations.AppBarScaleAnimation
 
 class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(context, attrs) {
     companion object {
@@ -25,7 +25,7 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
     private var nextTargetAlpha: Float = 0.0f
 
     // 指定されたResourceIDのレイアウトにScaleAnimationを設定
-    fun startAnimation(appBarScaleAnimation: AppBarScaleAppBarAnimation, targetResourceId: Int, scrollViewResourceId: Int) {
+    fun startAnimation(scaleAnimation: AppBarScaleAnimation, targetResourceId: Int, scrollViewResourceId: Int) {
         lateinit var targetLayout: View
         lateinit var scrollView: View
         addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -39,23 +39,23 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
                         prevTargetSizeY == 0.0f &&
                         nextTargetSizeY == 0.0f
                     ) {
-                        initScaleSize(appBarScaleAnimation)
+                        initScaleSize(scaleAnimation)
                         scrollViewHeight = scrollView.height
                     } else {
-                        setScaleSize(verticalOffset, appBarScaleAnimation)
-                        targetLayout.startAnimation(getScaleAnimation(appBarScaleAnimation))
+                        setScaleSize(verticalOffset, scaleAnimation)
+                        targetLayout.startAnimation(getScaleAnimation(scaleAnimation))
                     }
                 }
                 else -> {
-                    setScaleSize(verticalOffset, appBarScaleAnimation)
-                    targetLayout.startAnimation(getScaleAnimation(appBarScaleAnimation))
+                    setScaleSize(verticalOffset, scaleAnimation)
+                    targetLayout.startAnimation(getScaleAnimation(scaleAnimation))
                 }
             }
         })
     }
 
     // duration0 fillAfter:trueでScaleAnimationを作成
-    private fun getScaleAnimation(appBarScaleAnimation: AppBarScaleAppBarAnimation): ScaleAnimation {
+    private fun getScaleAnimation(appBarScaleAnimation: AppBarScaleAnimation): ScaleAnimation {
         val scaleAnimation = ScaleAnimation(
             prevTargetSizeX,
             nextTargetSizeX,
@@ -73,22 +73,22 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
     }
 
     // ScrollするごとにAnimationに使う値を再計算
-    private fun setScaleSize(verticalOffset: Int, appBarScaleAnimation: AppBarScaleAppBarAnimation) {
+    private fun setScaleSize(verticalOffset: Int, scaleAnimation: AppBarScaleAnimation) {
         prevTargetSizeX = nextTargetSizeX
         nextTargetSizeX =
-            Math.abs(verticalOffset) * ((appBarScaleAnimation.toX - appBarScaleAnimation.fromX) / scrollViewHeight) + appBarScaleAnimation.fromX
+            Math.abs(verticalOffset) * ((scaleAnimation.toX - scaleAnimation.fromX) / scrollViewHeight) + scaleAnimation.fromX
 
         prevTargetSizeY = nextTargetSizeY
         nextTargetSizeY =
-            Math.abs(verticalOffset) * ((appBarScaleAnimation.toY - appBarScaleAnimation.fromY) / scrollViewHeight) + appBarScaleAnimation.fromY
+            Math.abs(verticalOffset) * ((scaleAnimation.toY - scaleAnimation.fromY) / scrollViewHeight) + scaleAnimation.fromY
     }
 
     // ScaleAnimation に使用する値を初期化
-    private fun initScaleSize(appBarScaleAnimation: AppBarScaleAppBarAnimation) {
-        prevTargetSizeX = appBarScaleAnimation.fromX
-        nextTargetSizeX = appBarScaleAnimation.fromX
-        prevTargetSizeY = appBarScaleAnimation.fromY
-        nextTargetSizeY = appBarScaleAnimation.fromY
+    private fun initScaleSize(scaleAnimation: AppBarScaleAnimation) {
+        prevTargetSizeX = scaleAnimation.fromX
+        nextTargetSizeX = scaleAnimation.fromX
+        prevTargetSizeY = scaleAnimation.fromY
+        nextTargetSizeY = scaleAnimation.fromY
     }
 
     // 指定されたResourceIDのレイアウトにAlphaAnimationを設定
