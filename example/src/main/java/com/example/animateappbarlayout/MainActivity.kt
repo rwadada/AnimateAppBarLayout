@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             pivotYType = Animation.RELATIVE_TO_SELF,
             pivotYVal = 1.0f
         )
-        appBarLayout.startAnimation(
+        appBarLayout.setAnimation(
             appBarScaleAnimation = appBarScaleAnimation,
             targetResourceId = R.id.toolbar,
             scrollViewResourceId = R.id.toolbar
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             fromAlpha = 1.0f,
             toAlpha = 0.0f
         )
-        appBarLayout.startAnimation(
+        appBarLayout.setAnimation(
             appBarAlphaAnimation = appBarAlphaAnimation,
             targetResourceId = R.id.text_view,
             scrollViewResourceId = R.id.toolbar
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             pivotYVal = 0.5f
         )
 
-        appBarLayout.startAnimation(
+        appBarLayout.setAnimation(
             appBarRotateAnimation = appBarRotateAnimation,
             targetResourceId = R.id.image_view,
             scrollViewResourceId = R.id.toolbar
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             toYValue = 0.0f
         )
 
-        appBarLayout.startAnimation(
+        appBarLayout.setAnimation(
             appBarTranslateAnimation = appBarTranslateAnimation,
             targetResourceId = R.id.dot,
             scrollViewResourceId = R.id.toolbar

@@ -9,4 +9,4 @@ data class AppBarRotateAnimation (
     val pivotXVal: Float = 0.0f,
     val pivotYType: Int = Animation.ABSOLUTE,
     val pivotYVal: Float = 0.0f
-)
+) : AppBarAnimation

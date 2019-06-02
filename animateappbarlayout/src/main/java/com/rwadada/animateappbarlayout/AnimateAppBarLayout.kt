@@ -37,7 +37,7 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
     private var nextTranslateY: Float = 0.0f
 
     // 指定されたResourceIDのレイアウトにScaleAnimationを設定
-    fun startAnimation(
+    fun setAnimation(
         appBarScaleAnimation:
         AppBarScaleAnimation,
         targetResourceId: Int,
@@ -114,7 +114,7 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
     }
 
     // 指定されたResourceIDのレイアウトにAlphaAnimationを設定
-    fun startAnimation(
+    fun setAnimation(
         appBarAlphaAnimation: AppBarAlphaAnimation,
         targetResourceId: Int,
         scrollViewResourceId: Int
@@ -176,7 +176,7 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
     }
 
     // 指定されたResourceIDのレイアウトにRotateAnimationを設定
-    fun startAnimation(
+    fun setAnimation(
         appBarRotateAnimation: AppBarRotateAnimation,
         targetResourceId: Int,
         scrollViewResourceId: Int
@@ -242,7 +242,7 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
     }
 
     // 指定されたResourceIDのレイアウトにTranslateAnimationを設定
-    fun startAnimation(
+    fun setAnimation(
         appBarTranslateAnimation: AppBarTranslateAnimation,
         targetResourceId: Int,
         scrollViewResourceId: Int

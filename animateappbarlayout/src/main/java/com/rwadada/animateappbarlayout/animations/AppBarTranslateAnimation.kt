@@ -11,4 +11,4 @@ data class AppBarTranslateAnimation(
     val fromYValue: Float = 0.0f,
     val toYType: Int = Animation.ABSOLUTE,
     val toYValue: Float = 0.0f
-)
+) : AppBarAnimation
