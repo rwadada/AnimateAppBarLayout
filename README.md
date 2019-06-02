@@ -141,7 +141,7 @@ appBarLayout.setAnimation(appBarAnimationSet = appBarAnimationSet,
 
 Developed By
 -------
-Ryosuke Wada (rwadada) - <wadada.knct@gmail.com>
+Ryosuke Wada (rwadada)
 
 License
 -------
