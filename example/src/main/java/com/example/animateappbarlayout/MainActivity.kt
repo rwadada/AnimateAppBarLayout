@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
             pivotXType = Animation.RELATIVE_TO_SELF,
             pivotXVal = 0.5f,
             pivotYType = Animation.RELATIVE_TO_SELF,
-            pivotYVal = 1.0f
+            pivotYVal = 0.5f
         )
         val appBarAlphaAnimation = AppBarAlphaAnimation(
             fromAlpha = 1.0f,
@@ -32,9 +32,9 @@ class MainActivity : AppCompatActivity() {
             fromDegree = 0.0f,
             toDegree = 360.0f,
             pivotXType = Animation.RELATIVE_TO_SELF,
-            pivotXVal = 0.0f,
+            pivotXVal = 0.5f,
             pivotYType = Animation.RELATIVE_TO_SELF,
-            pivotYVal = 0.0f
+            pivotYVal = 0.5f
         )
         val appBarTranslateAnimation = AppBarTranslateAnimation(
             fromXType = Animation.RELATIVE_TO_PARENT,
@@ -47,14 +47,22 @@ class MainActivity : AppCompatActivity() {
             toYValue = 1.0f
         )
 
-        val appBarAnimationSet = AppBarAnimationSet()
-        appBarAnimationSet.addAnimation(appBarScaleAnimation)
-        appBarAnimationSet.addAnimation(appBarAlphaAnimation)
-        appBarAnimationSet.addAnimation(appBarRotateAnimation)
-        appBarAnimationSet.addAnimation(appBarTranslateAnimation)
+        val appBarAnimationSet1 = AppBarAnimationSet()
+        appBarAnimationSet1.addAnimation(appBarScaleAnimation)
+        appBarAnimationSet1.addAnimation(appBarAlphaAnimation)
 
-        appBarLayout.setAnimation(appBarAnimationSet = appBarAnimationSet,
+        appBarLayout.setAnimation(appBarAnimationSet = appBarAnimationSet1,
             targetResourceId = R.id.toolbar,
             scrollViewResourceId = R.id.toolbar)
+
+        val appBarAnimationSet2 = AppBarAnimationSet()
+        appBarAnimationSet2.addAnimation(appBarScaleAnimation)
+        appBarAnimationSet2.addAnimation(appBarRotateAnimation)
+
+        appBarLayout.setAnimation(appBarAnimationSet = appBarAnimationSet2,
+            targetResourceId = R.id.toolbar,
+            scrollViewResourceId = R.id.toolbar)
+
+        appBarLayout.setAnimation(appBarAnimationSet2, R.id.image_view, R.id.toolbar)
     }
 }
