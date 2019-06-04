@@ -32,44 +32,24 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
                     0 -> {
                         targetLayout = appBarLayout.findViewById(targetResourceId)
                         scrollView = appBarLayout.findViewById(scrollViewResourceId)
-                        when (appBarAnimation) {
-                            is AppBarScaleAnimation -> {
-                                setScaleAnimation(appBarAnimation, scrollView, verticalOffset)
-                                animationSet.addAnimation(getScaleAnimation(appBarAnimation))
-                            }
-                            is AppBarAlphaAnimation -> {
-                                setAlphaAnimation(appBarAnimation, scrollView, verticalOffset)
-                                animationSet.addAnimation(getAlphaAnimation(appBarAnimation))
-                            }
-                            is AppBarRotateAnimation -> {
-                                setRotateAnimation(appBarAnimation, scrollView, verticalOffset)
-                                animationSet.addAnimation(getRotateAnimation(appBarAnimation))
-                            }
-                            is AppBarTranslateAnimation -> {
-                                setTranslateAnimation(appBarAnimation, scrollView, verticalOffset)
-                                animationSet.addAnimation(getTranslateAnimation(appBarAnimation))
-                            }
-                        }
                     }
-                    else -> {
-                        when (appBarAnimation) {
-                            is AppBarScaleAnimation -> {
-                                setScaleAnimation(appBarAnimation, scrollView, verticalOffset)
-                                animationSet.addAnimation(getScaleAnimation(appBarAnimation))
-                            }
-                            is AppBarAlphaAnimation -> {
-                                setAlphaAnimation(appBarAnimation, scrollView, verticalOffset)
-                                animationSet.addAnimation(getAlphaAnimation(appBarAnimation))
-                            }
-                            is AppBarRotateAnimation -> {
-                                setRotateAnimation(appBarAnimation, scrollView, verticalOffset)
-                                animationSet.addAnimation(getRotateAnimation(appBarAnimation))
-                            }
-                            is AppBarTranslateAnimation -> {
-                                setTranslateAnimation(appBarAnimation, scrollView, verticalOffset)
-                                animationSet.addAnimation(getTranslateAnimation(appBarAnimation))
-                            }
-                        }
+                }
+                when (appBarAnimation) {
+                    is AppBarScaleAnimation -> {
+                        setScaleAnimation(appBarAnimation, scrollView, verticalOffset)
+                        animationSet.addAnimation(getScaleAnimation(appBarAnimation))
+                    }
+                    is AppBarAlphaAnimation -> {
+                        setAlphaAnimation(appBarAnimation, scrollView, verticalOffset)
+                        animationSet.addAnimation(getAlphaAnimation(appBarAnimation))
+                    }
+                    is AppBarRotateAnimation -> {
+                        setRotateAnimation(appBarAnimation, scrollView, verticalOffset)
+                        animationSet.addAnimation(getRotateAnimation(appBarAnimation))
+                    }
+                    is AppBarTranslateAnimation -> {
+                        setTranslateAnimation(appBarAnimation, scrollView, verticalOffset)
+                        animationSet.addAnimation(getTranslateAnimation(appBarAnimation))
                     }
                 }
             }
@@ -94,44 +74,24 @@ class AnimateAppBarLayout(context: Context, attrs: AttributeSet) : AppBarLayout(
                 0 -> {
                     targetLayout = appBarLayout.findViewById(targetResourceId)
                     scrollView = appBarLayout.findViewById(scrollViewResourceId)
-                    when (appBarAnimation) {
-                        is AppBarScaleAnimation -> {
-                            setScaleAnimation(appBarAnimation, scrollView, verticalOffset)
-                            targetLayout.startAnimation(getScaleAnimation(appBarAnimation))
-                        }
-                        is AppBarAlphaAnimation -> {
-                            setAlphaAnimation(appBarAnimation, scrollView, verticalOffset)
-                            targetLayout.startAnimation(getAlphaAnimation(appBarAnimation))
-                        }
-                        is AppBarRotateAnimation -> {
-                            setRotateAnimation(appBarAnimation, scrollView, verticalOffset)
-                            targetLayout.startAnimation(getRotateAnimation(appBarAnimation))
-                        }
-                        is AppBarTranslateAnimation -> {
-                            setTranslateAnimation(appBarAnimation, scrollView, verticalOffset)
-                            targetLayout.startAnimation(getTranslateAnimation(appBarAnimation))
-                        }
-                    }
                 }
-                else -> {
-                    when (appBarAnimation) {
-                        is AppBarScaleAnimation -> {
-                            setScaleAnimation(appBarAnimation, scrollView, verticalOffset)
-                            targetLayout.startAnimation(getScaleAnimation(appBarAnimation))
-                        }
-                        is AppBarAlphaAnimation -> {
-                            setAlphaAnimation(appBarAnimation, scrollView, verticalOffset)
-                            targetLayout.startAnimation(getAlphaAnimation(appBarAnimation))
-                        }
-                        is AppBarRotateAnimation -> {
-                            setRotateAnimation(appBarAnimation, scrollView, verticalOffset)
-                            targetLayout.startAnimation(getRotateAnimation(appBarAnimation))
-                        }
-                        is AppBarTranslateAnimation -> {
-                            setTranslateAnimation(appBarAnimation, scrollView, verticalOffset)
-                            targetLayout.startAnimation(getTranslateAnimation(appBarAnimation))
-                        }
-                    }
+            }
+            when (appBarAnimation) {
+                is AppBarScaleAnimation -> {
+                    setScaleAnimation(appBarAnimation, scrollView, verticalOffset)
+                    targetLayout.startAnimation(getScaleAnimation(appBarAnimation))
+                }
+                is AppBarAlphaAnimation -> {
+                    setAlphaAnimation(appBarAnimation, scrollView, verticalOffset)
+                    targetLayout.startAnimation(getAlphaAnimation(appBarAnimation))
+                }
+                is AppBarRotateAnimation -> {
+                    setRotateAnimation(appBarAnimation, scrollView, verticalOffset)
+                    targetLayout.startAnimation(getRotateAnimation(appBarAnimation))
+                }
+                is AppBarTranslateAnimation -> {
+                    setTranslateAnimation(appBarAnimation, scrollView, verticalOffset)
+                    targetLayout.startAnimation(getTranslateAnimation(appBarAnimation))
                 }
             }
         })
