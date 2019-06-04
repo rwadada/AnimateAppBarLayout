@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         "ver 0.0.2 : released on 2019/06/02",
         "ver 1.0.0-beta1 : released on 2019/06/02",
         "ver 1.0.0 : released on 2019/06/04",
-        "...",
+        "ver 1.0.1 : released on 2019/06/04",
         "...",
         "...",
         "...",
