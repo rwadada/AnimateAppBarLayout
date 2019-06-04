@@ -51,14 +51,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="#00BCD4"
-                    app:layout_constraintTop_toTopOf="@id/text_view"
-                    app:layout_constraintStart_toStartOf="@id/text_view"
-                    app:layout_constraintEnd_toEndOf="@id/text_view"
-                    app:layout_constraintBottom_toBottomOf="@id/text_view"/>
 
             <TextView
                     android:id="@+id/text_view"
@@ -85,8 +77,8 @@
 
             <ImageView
                     android:id="@+id/rocket"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:src="@drawable/rocket"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -97,6 +89,7 @@
     </com.rwadada.animateappbarlayout.AnimateAppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>

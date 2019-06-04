@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.rwadada.animateappbarlayout"/>
+<manifest package="com.rwadada.animateappbarlayout"/>
