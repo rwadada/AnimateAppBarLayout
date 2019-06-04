@@ -2,6 +2,12 @@
 [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 # AnimateAppBarLayout
 Layout to add animation to the scaling of AppbarLayout  
+![logo](art/ic_animateAppBarLayout.png)  
+
+Screenshot
+---
+
+![Demo](art/sample.gif)  
 
 How do I use it?
 ---
@@ -22,7 +28,7 @@ build.gradle(module)
 ```groovy
 dependencies {
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'com.github.rwadada:AnimateAppBarLayout:1.0.0-beta1'
+    implementation 'com.github.rwadada:AnimateAppBarLayout:1.0.1'
 }
 ```
 
