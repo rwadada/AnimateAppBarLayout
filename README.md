@@ -124,19 +124,19 @@ val appBarAnimationSet = AppBarAnimationSet()
 
 ##### setAppBarAnimation
 ```kotlin
-appBarLayout.setAnimation(appBarScaleAnimation = appBarScaleAnimation,
+appBarLayout.setAnimation(appBarAnimstion = appBarScaleAnimation,
             targetResourceId = R.id.toolbar,
             scrollViewResourceId = R.id.toolbar)
             
-appBarLayout.setAnimation(appBarAlphaAnimation = appBarAlphaAnimation,
+appBarLayout.setAnimation(appBarAnimstion = appBarAlphaAnimation,
             targetResourceId = R.id.toolbar,
             scrollViewResourceId = R.id.toolbar)
             
-appBarLayout.setAnimation(appBarRotateAnimation = appBarRotateAnimation,
+appBarLayout.setAnimation(appBarAnimstion = appBarRotateAnimation,
             targetResourceId = R.id.toolbar,
             scrollViewResourceId = R.id.toolbar)
             
-appBarLayout.setAnimation(appBarTranslateAnimation = appBarTranslateAnimation,
+appBarLayout.setAnimation(appBarAnimstion = appBarTranslateAnimation,
             targetResourceId = R.id.toolbar,
             scrollViewResourceId = R.id.toolbar)
             
