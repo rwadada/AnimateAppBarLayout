@@ -9,56 +9,87 @@
 
     <com.rwadada.animateappbarlayout.AnimateAppBarLayout
             android:id="@+id/appbar_layout"
+            android:background="#00BCD4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:title="@string/app_name"
-                app:layout_scrollFlags="scroll|enterAlways"/>
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textSize="20sp"
+                    android:textAllCaps="true"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ImageView
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:src="@drawable/ic_animateappbarlayout"
+                    android:background="@drawable/bg_img"
+                    android:layout_margin="4dp"
+                    android:padding="4dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="#ffffff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <ImageView
-                    android:id="@+id/image_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:src="@drawable/ic_launcher_foreground"
-                    android:background="@drawable/ic_launcher_background"
-                    tools:ignore="ContentDescription"/>
 
             <TextView
                     android:id="@+id/text_view"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#00BCD4"
                     android:text="Hello AnimateAppBarLayout"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:textStyle="bold"
                     android:gravity="center"
-                    app:layout_constraintTop_toTopOf="@id/image_view"
-                    app:layout_constraintBottom_toBottomOf="@id/image_view"
-                    app:layout_constraintStart_toEndOf="@id/image_view"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-            <TextView
-                    android:id="@+id/dot"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="・"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:padding="3dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/image_view"/>
+                    android:src="@drawable/ic_animateappbarlayout"
+                    android:background="@drawable/bg_img"
+                    tools:ignore="ContentDescription"/>
+
+            <ImageView
+                    android:id="@+id/rocket"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/rocket"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:ignore="ContentDescription"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.rwadada.animateappbarlayout.AnimateAppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
